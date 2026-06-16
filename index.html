@@ -531,17 +531,17 @@ iframe{
 
 .modal-icon{
     position:absolute;
-    top:-45px;
+    top:-30px;
     left:50%;
     transform:translateX(-50%);
-    width:90px;
-    height:90px;
+    width:70px;
+    height:70px;
     border-radius:50%;
     background:white;
     display:flex;
     justify-content:center;
     align-items:center;
-    font-size:45px;
+    font-size:35px;
 }
 
 .modal-title{
@@ -572,14 +572,18 @@ iframe{
 
 .close-modal{
     position:absolute;
-    right:20px;
-    top:20px;
+    top:15px;
+    right:15px;
+    width:38px;
+    height:38px;
     border:none;
+    border-radius:50%;
     background:#c8ae7d;
     color:white;
-    width:35px;
-    height:35px;
-    border-radius:50%;
+    font-size:20px;
+    font-weight:bold;
+    cursor:pointer;
+    z-index:10000;
 }
 
 /* =========================
@@ -700,7 +704,6 @@ iframe{
 .tips-modal{
 
     position:fixed;
-
     inset:0;
 
     background:rgba(0,0,0,.6);
@@ -709,25 +712,37 @@ iframe{
 
     justify-content:center;
 
-    align-items:flex-start;
-
-    overflow-y:auto;
-
-    padding:30px 15px;
+    align-items:center;
 
     z-index:9999;
+
+    padding:15px;
+
+    overflow-y:auto;
 
 }
 
 .tips-modal-content{
+
     position:relative;
+
     width:100%;
-    max-width:550px;
+    max-width:500px;
+
     background:#f6f2f2;
-    border-radius:35px;
-    padding:80px 35px 45px;
+
+    border-radius:25px;
+
+    padding:70px 20px 25px;
+
     text-align:center;
+
+    max-height:85vh;
+
+    overflow-y:auto;
+
     animation:modalShow .4s ease;
+
 }
 
 .tips-list{
@@ -897,11 +912,41 @@ iframe{
     accent-color:#c8ae7d;
 }
 
+@media (max-width:768px){
+
+    .tips-modal-content{
+
+        max-height:80vh;
+
+        padding:60px 15px 20px;
+
+    }
+
+    .modal-title{
+
+        font-size:28px;
+
+    }
+
+    .close-modal{
+
+        top:10px;
+
+        right:10px;
+
+        width:35px;
+
+        height:35px;
+
+    }
+
+}
+
 /* TEXTAREA */
 
 .tips-modal-content textarea{
     width:100%;
-    min-height:120px;
+    min-height:100px;
     border:none;
     border-bottom:2px solid #ddd2be;
     background:transparent;
@@ -2195,7 +2240,7 @@ async function checkExistingRsvp(){
 
             document.getElementById(
                 "rsvpComment"
-            ).disabled = true;
+            ).style.display = "none";
 
             document.getElementById(
                 "rsvpButton"
