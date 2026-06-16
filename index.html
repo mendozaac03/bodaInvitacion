@@ -1079,6 +1079,60 @@ transition:all .8s ease;
     transform:scale(1.05);
 
 }
+
+.hotel-buttons{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:15px;
+
+    flex-wrap:wrap;
+
+    margin-top:25px;
+
+}
+
+.hotel-btn{
+
+    background:#c8ae7d;
+
+    color:white;
+
+    border:none;
+
+    padding:15px 25px;
+
+    border-radius:40px;
+
+    font-size:16px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    min-width:170px;
+
+}
+
+.hotel-btn:hover{
+
+    transform:translateY(-3px);
+
+}
+
+.section-text{
+
+    max-width:600px;
+
+    margin:0 auto;
+
+    text-align:center;
+
+    line-height:1.8;
+
+}
 </style>
 </head>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
@@ -1157,11 +1211,12 @@ transition:all .8s ease;
     <h2>Nuestra Historia</h2>
 
     <p>
-        Con mucha alegría queremos compartir contigo este momento tan especial.
-        Gracias por formar parte de nuestra historia y acompañarnos en este día inolvidable.
+        Hace 15 años nos conocimos, sin imaginar que ese encuentro sería el comienzo de una hermosa historia de amor. Juntos hemos construido una familia maravillosa y hemos compartido momentos que han fortalecido nuestro camino.
+		Hoy, agradecidos por todas las bendiciones recibidas, queremos unir nuestras vidas ante Dios y celebrar este momento tan especial con las personas que mas queremos.
+
     </p>
 
-
+<br/> 
     <h2>Faltan</h2>
 
     <div class="countdown">
@@ -1229,10 +1284,10 @@ transition:all .8s ease;
 
         </div>
 
-        <h3 class="church-name">
+        <h3 >
             Parroquia Nuestra Señora del perpetuo Socorro
         </h3>
-
+<br/>
         <a 
             href="https://maps.app.goo.gl/hdHYejKYs45aBuDh7"
             target="_blank"
@@ -1240,9 +1295,8 @@ transition:all .8s ease;
         >
           📍  ¿Cómo llegar?
         </a>
-
+		
     </div>
-
 </section>
 
 <!-- UBICACION -->
@@ -1251,7 +1305,7 @@ transition:all .8s ease;
     <h2>Celebración</h2>
 
     <p>
-        Salón de Eventos el Candil<br>
+        Salón de Eventos "El Candil"<br>
 
     </p>
  <button
@@ -1372,9 +1426,8 @@ transition:all .8s ease;
 <section class="section">
 
     <h2>Dress Code</h2>
-
     <div class="dress-code-box">
-
+<br/>
         <div class="dress-image-container">
 
             <img 
@@ -1407,9 +1460,8 @@ transition:all .8s ease;
 
 <!-- TIPS -->
 <section class="section">
-
     <div class="tips-card">
-
+<br/>
         <h2 class="tips-title">
             Tips y Notas
         </h2>
@@ -1534,7 +1586,7 @@ transition:all .8s ease;
 <section class="section">
 
     <div class="music-card">
-
+<br/>
         <h2 class="music-title">
             Confirma tu Asistencia
         </h2>
@@ -1551,6 +1603,37 @@ transition:all .8s ease;
 <p id="rsvpStatus" class="rsvp-status"></p>
         <button class="music-btn-card" onclick="openRsvpModal()">
             Confirmar Asistencia
+        </button>
+
+    </div>
+
+</section>
+
+<!-- HOSPEDAJE -->
+<section class="section">
+
+    <h2>Hospedaje Recomendado</h2>
+
+    <p class="section-text">
+        Para mayor comodidad, les compartimos algunas opciones de hospedaje cercanas al evento.
+    </p>
+
+    <div class="hotel-buttons">
+
+        <button
+            class="hotel-btn"
+            onclick="window.open('https://www.airbnb.mx/s/San-Felipe-Tlalmimilolpan--Edo.-M%C3%A9x./homes?place_id=ChIJdX6m62SJzYURTvKrLAz5Kpc&refinement_paths%5B%5D=%2Fhomes&checkin=2026-08-22&checkout=2026-08-23&date_picker_type=calendar&search_type=AUTOSUGGEST', '_blank')">
+
+            🏠 Airbnb
+
+        </button>
+
+        <button
+            class="hotel-btn"
+            onclick="window.open('https://www.ihg.com/holidayinnexpress/hotels/us/es/find-hotels/select-roomrate?qDest=Paseo%20Tollocan:%20%20818,%20Toluca,%20MEX,%20MX&qPt=CASH&qCiD=22&qCoD=23&qCiMy=072026&qCoMy=072026&qAdlt=4&qChld=0&qRms=1&qRtP=6CBARC&qSlH=TLUDR&srb_u=1&qFS=false&qSrt=sBR&qBrs=6c.hi.ex.sb.ul.ic.cp.cw.in.vn.cv.rs.ki.kd.ma.sp.va.sp.re.vx.nd.sx.we.lx.rn.sn.sn.sn.sn.sn.nu.ge.fa&qWch=0&qSmP=0&qRad=30&qRdU=mi&setPMCookies=false&qRCC=CC020&qpMbw=0&qErm=false&qpMn=0&qRmFltr=', '_blank')">
+
+            🏨 Holiday Inn
+
         </button>
 
     </div>
@@ -1630,13 +1713,13 @@ async function loadGuest(){
     try{
 
         const response = await fetch(
-            `http://localhost:8080/guest/${code}`
+            `https://invitacionbodaback.onrender.com/guest/${code}`
         );
         guestData = await response.json();
 console.log("RESPUESTA----->",guestData);
 
         document.getElementById("welcomeFamily").innerHTML =
-    `Bienvenidos familia  ${guestData.familyName}`;
+    `Bienvenid@  ${guestData.familyName}`;
 
         document.getElementById("guestAllowed").innerHTML =
             guestData.allowedGuests;
@@ -1744,7 +1827,7 @@ console.log("algo");
 
     try{
 
-        const response = await fetch("http://localhost:8080/song",{
+        const response = await fetch("https://invitacionbodaback.onrender.com/song",{
 
             method:"POST",
             headers:{
@@ -1845,7 +1928,7 @@ const guestsAttending =
 
     try{
 
-        const response = await fetch("http://localhost:8080/rsvp",{
+        const response = await fetch("https://invitacionbodaback.onrender.com/rsvp",{
 
             method:"POST",
             headers:{
@@ -1884,7 +1967,7 @@ async function checkExistingRsvp(){
 
         const response =
             await fetch(
-                `http://localhost:8080/rsvp/${code}`
+                `https://invitacionbodaback.onrender.com/rsvp/${code}`
             );
 
         /* NO EXISTE RSVP */
@@ -1960,7 +2043,7 @@ async function checkExistingRsvp(){
 
                     Puedes actualizar tu
                     confirmación antes del
-                    22 de julio.
+                    22 de Julio.
 
                 </div>
 
