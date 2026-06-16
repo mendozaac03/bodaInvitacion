@@ -330,6 +330,55 @@ iframe{
     margin:auto;
 }
 
+.dress-image:hover{
+
+    transform:scale(1.03);
+
+}
+
+.dress-hint{
+
+    margin-top:10px;
+
+    font-size:12px;
+
+    color:#888;
+
+}
+
+/* MODAL */
+
+.image-modal{
+
+    display:none;
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.92);
+
+    z-index:9999;
+
+    justify-content:center;
+
+    align-items:center;
+
+    cursor:pointer;
+
+}
+
+.modal-image{
+
+    max-width:90%;
+
+    max-height:90vh;
+
+    border-radius:12px;
+
+    box-shadow:0 0 30px rgba(0,0,0,.4);
+
+}
 .dress-icon{
     font-size:45px;
     margin-bottom:15px;
@@ -1442,14 +1491,23 @@ transition:all .8s ease;
 <section class="section">
 
     <h2>Dress Code</h2>
+
     <div class="dress-code-box">
-<br/>
+
+        <br>
+
         <div class="dress-image-container">
 
-            <img 
+            <img
                 src="dressCodeBlack.png"
                 class="dress-image"
+                alt="Dress Code Black Elegant"
+                onclick="openDressCodeImage(this.src)"
             >
+
+            <p class="dress-hint">
+                Toca la imagen para ampliar
+            </p>
 
         </div>
 
@@ -1462,17 +1520,21 @@ transition:all .8s ease;
             para hacer de esta noche algo aún más especial.
         </p>
 
-        <!--<a 
-            href="https://mx.pinterest.com/nanadesignstudio/dress-code-black/"
-            target="_blank"
-            class="pinterest-btn"
-        >
-            Ver inspiración
-        </a> -->
-
     </div>
 
 </section>
+
+<!-- MODAL IMAGEN -->
+<div
+    id="imageModal"
+    class="image-modal"
+    onclick="closeDressCodeImage()">
+
+    <img
+        id="modalImage"
+        class="modal-image">
+
+</div>
 
 <!-- TIPS -->
 <section class="section">
@@ -2205,6 +2267,26 @@ function openMaps(){
 	"https://maps.app.goo.gl/B5QcsUPTwKx6fwg37",
         "_blank"
     );
+
+}
+
+function openDressCodeImage(src){
+
+    document.getElementById(
+        "modalImage"
+    ).src = src;
+
+    document.getElementById(
+        "imageModal"
+    ).style.display = "flex";
+
+}
+
+function closeDressCodeImage(){
+
+    document.getElementById(
+        "imageModal"
+    ).style.display = "none";
 
 }
 </script>
