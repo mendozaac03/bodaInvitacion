@@ -1844,7 +1844,7 @@ transition:all .8s ease;
 
 
 const params = new URLSearchParams(window.location.search);
-
+let usuarioActual="--";
 const code = params.get("code");
 let alreadyConfirmed = false;
 let guestData = null;
@@ -1856,7 +1856,8 @@ async function loadGuest(){
             `https://invitacionbodaback.onrender.com/guest/${code}`
         );
         guestData = await response.json();
-console.log("RESPUESTA----->",guestData);
+//console.log("RESPUESTA----->",guestData);
+usuarioActual=guestData.familyName;
 
         document.getElementById("welcomeFamily").innerHTML =
     `Bienvenid@  ${guestData.familyName}`;
@@ -1950,7 +1951,7 @@ setInterval(() => {
 },1000);
 
 async function submitSong(){
-console.log("algo");
+
     const guestName = document.getElementById("guestName").value;
     const songName = document.getElementById("songName").value;
 
@@ -1962,7 +1963,7 @@ console.log("algo");
 
   const body = {
   guestName,
-    songName
+    songName, usuarioActual
 };
 
     try{
