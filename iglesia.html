@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>🎉 Boda Tania & Abdiel</title>
+
+<style>
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(#fff, #f5e6da);
+    text-align: center;
+    margin: 0;
+}
+
+/* BOTÓN REGRESAR */
+.back-btn {
+    position: fixed;
+    top: 20px;
+    left: 15px;
+    background: white;
+    border: none;
+    border-radius: 50%;
+    padding: 10px;
+    cursor: pointer;
+    box-shadow: 0px 3px 10px rgba(0,0,0,0.2);
+    z-index: 999;
+    transition: 0.3s;
+}
+
+.back-btn:hover {
+    transform: scale(1.1);
+}
+
+.back-btn img {
+    width: 18px;
+}
+
+h1 {
+    color: #8b5e3c;
+}
+
+/* MENSAJE */
+.message {
+    max-width: 600px;
+    margin: auto;
+    background: white;
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 0px 3px 10px rgba(0,0,0,0.1);
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+/* UPLOAD */
+.upload-box {
+    margin: 20px;
+}
+
+button {
+    background: #c89b7b;
+    border: none;
+    padding: 8px 15px;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+/* STORIES */
+.stories-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.stories {
+    display: flex;
+    overflow-x: auto;
+    gap: 15px;
+    padding: 20px;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+}
+
+.stories::-webkit-scrollbar {
+    display: none;
+}
+
+.story img {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    padding: 3px;
+    background: linear-gradient(45deg,#feda75,#fa7e1e,#d62976,#962fbf,#4f5bd5);
+    cursor: pointer;
+}
+
+/* FLECHAS BONITAS */
+.arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: white;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    box-shadow: 0px 2px 10px rgba(0,0,0,0.2);
+    z-index: 2;
+}
+
+.arrow img {
+    width: 20px;
+}
+
+.arrow-left { left: 10px; }
+.arrow-right { right: 10px; }
+
+/* MODAL */
+.modal {
+    display: none;
+    position: fixed;
+    top:0; left:0;
+    width:100%;
+    height:100%;
+    background: rgba(0,0,0,0.95);
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.modal img {
+    width: 90%;
+    max-width: 600px;
+    border-radius: 10px;
+}
+
+/* PROGRESS */
+.progress {
+    position: absolute;
+    top: 20px;
+    width: 80%;
+    height: 5px;
+    background: rgba(255,255,255,0.3);
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background: white;
+}
+.preview {
+    position: relative;
+}
+
+.preview img {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0px 2px 8px rgba(0,0,0,0.2);
+}
+
+.remove-btn {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: red;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+}
+
+.remove-btn {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    width: 22px;
+    height: 22px;
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    box-shadow: 0px 2px 6px rgba(0,0,0,0.3);
+    transition: 0.2s;
+}
+.toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 25px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s, bottom 0.4s;
+    font-size: 14px;
+    z-index: 9999;
+}
+
+.toast.show {
+    opacity: 1;
+    bottom: 50px;
+}
+
+/* Variantes */
+.toast.success { background: #4CAF50; }
+.toast.error { background: #e74c3c; }
+.toast.info { background: #3498db; }
+
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+    100% { transform: scale(1); }
+}
+/* Ocultar input original */
+#fileInput{
+    display:none;
+}
+
+/* Botón moderno */
+.upload-label{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:15px 28px;
+    background:linear-gradient(135deg,#d4af37,#b8860b);
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    border-radius:40px;
+    cursor:pointer;
+    box-shadow:0 8px 20px rgba(0,0,0,.18);
+    transition:.25s;
+    user-select:none;
+}
+
+.upload-label:hover{
+    transform:translateY(-3px);
+    box-shadow:0 12px 25px rgba(0,0,0,.28);
+}
+
+.upload-label:active{
+    transform:scale(.97);
+}
+
+.upload-label .icon{
+    font-size:22px;
+}
+
+.selected-text{
+    margin-top:12px;
+    color:#8b5e3c;
+    font-weight:600;
+}
+</style>
+</head>
+<div id="toast" class="toast"></div>
+<body>
+<button class="back-btn" onclick="goBack()">
+    <img src="https://cdn-icons-png.flaticon.com/512/271/271220.png">
+</button>
+<h1>🎉 Boda Tania & Abdiel 🥂</h1>
+<div class="message">
+💍✨ <b>¡Aqui sube tus fotos de la Fiesta!</b> ✨💍 <br><br>
+</div>
+
+
+
+<script>
+
+</script>
+
+<!-- UPLOAD -->
+<div class="upload-box">
+
+<label for="fileInput" class="upload-label">
+    <span class="icon">📸</span>
+    Elegir fotografías
+</label>
+
+<input
+    type="file"
+    id="fileInput"
+    multiple
+    accept="image/*">
+
+<div id="selectedCount" class="selected-text">
+    Ninguna fotografía seleccionada
+</div>
+    <div id="previewContainer" style="display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:15px;"></div>
+
+    <button onclick="uploadFiles()">📤 Subir seleccionadas</button>
+
+</div>
+
+<!-- STORIES -->
+<div class="stories-container">
+
+    <button class="arrow arrow-left" onclick="scrollStories(-200)">
+        <img src="https://cdn-icons-png.flaticon.com/512/271/271220.png">
+    </button>
+
+    <div id="stories" class="stories"></div>
+
+    <button class="arrow arrow-right" onclick="scrollStories(200)">
+        <img src="https://cdn-icons-png.flaticon.com/512/271/271228.png">
+    </button>
+
+</div>
+
+<!-- MODAL -->
+<div id="modal" class="modal">
+    <div class="progress">
+        <div id="progressBar" class="progress-bar"></div>
+    </div>
+    <img id="modalImg">
+</div>
+
+<script>
+
+const eventId = 1;
+const category = "iglesia";
+
+let photos = [];
+let currentIndex = 0;
+let interval;
+var selectedFiles = [];
+// CARGAR
+console.log(document.getElementById("fileInput"));
+function loadPhotos() {
+    fetch(`http://localhost:8080/api/qr/photos?eventId=${eventId}&category=${category}`)
+    .then(res => res.json())
+    .then(data => {
+
+        photos = data;
+        const stories = document.getElementById("stories");
+        stories.innerHTML = "";
+
+        data.forEach((photo, index) => {
+
+            const div = document.createElement("div");
+            div.className = "story";
+
+            div.innerHTML = `
+                <img src="/${photo.url}?t=${Date.now()}" onclick="openStory(${index})">
+            `;
+
+            stories.appendChild(div);
+        });
+    });
+}
+
+// SCROLL
+function scrollStories(amount) {
+    document.getElementById("stories").scrollLeft += amount;
+}
+
+// UPLOAD
+
+
+// STORY
+function openStory(index){
+    currentIndex = index;
+    document.getElementById("modal").style.display = "flex";
+    showImage();
+    startAutoPlay();
+}
+
+function showImage(){
+    document.getElementById("modalImg").src = "/" + photos[currentIndex].url;
+}
+
+// AUTOPLAY
+function startAutoPlay(){
+    clearInterval(interval);
+    let progress = 0;
+    const bar = document.getElementById("progressBar");
+
+    interval = setInterval(()=>{
+        progress += 2;
+        bar.style.width = progress + "%";
+
+        if(progress >= 100){
+            nextStory();
+            progress = 0;
+        }
+    },100);
+}
+
+function nextStory(){
+    currentIndex++;
+    if(currentIndex >= photos.length){
+        closeModal();
+        return;
+    }
+    showImage();
+}
+
+// CERRAR
+document.getElementById("modal").addEventListener("click", closeModal);
+
+function closeModal(){
+    document.getElementById("modal").style.display = "none";
+    clearInterval(interval);
+}
+function goBack() {
+    window.location.href = "index.html";
+}
+
+
+
+// Detectar selección
+document.getElementById("fileInput").addEventListener("change", function(e) {
+
+    const files = Array.from(e.target.files);
+
+    files.forEach(file => {
+        selectedFiles.push(file);
+    });
+
+    renderPreview();
+	document.getElementById("selectedCount").innerHTML =
+    `📷 ${selectedFiles.length} fotografía(s) seleccionada(s)`;
+});
+
+// Render preview
+function renderPreview() {
+
+    const container = document.getElementById("previewContainer");
+    container.innerHTML = "";
+
+    selectedFiles.forEach((file, index) => {
+
+        const div = document.createElement("div");
+        div.className = "preview";
+
+        const img = document.createElement("img");
+        img.src = URL.createObjectURL(file);
+
+        const btn = document.createElement("button");
+		btn.innerHTML = "&times;"; 
+        btn.className = "remove-btn";
+
+        btn.onclick = () => {
+            selectedFiles.splice(index, 1);
+            renderPreview();
+        };
+
+        div.appendChild(img);
+        div.appendChild(btn);
+        container.appendChild(div);
+    });
+}
+
+// Subir archivos
+function uploadFiles() {
+
+    if (selectedFiles.length === 0) {
+        showToast("⚠️ Selecciona al menos una imagen", "error");
+        return;
+    }
+
+    showToast("📤 Subiendo fotos...", "info");
+
+    const uploadPromises = selectedFiles.map(file => {
+
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("eventId", 1);
+        formData.append("category", "bodaTaniaAbdiel");
+
+        return fetch("http://localhost:8080/api/qr/upload", {
+            method: "POST",
+            body: formData
+        });
+    });
+
+    Promise.all(uploadPromises)
+        .then(() => {
+            selectedFiles = [];
+            renderPreview();
+			document.getElementById("selectedCount").innerHTML =
+"Ninguna fotografía seleccionada";
+            loadPhotos();
+startAutoScroll();
+const stories = document.getElementById("stories");
+
+stories.addEventListener("mouseenter", stopAutoScroll);
+stories.addEventListener("mouseleave", startAutoScroll);
+            showToast("🎉 Fotos subidas con éxito", "success");
+        })
+        .catch(() => {
+            showToast("❌ Error al subir imágenes", "error");
+        });
+}
+
+
+function showToast(message, type = "info") {
+    const toast = document.getElementById("toast");
+
+    toast.innerText = message;
+    toast.className = `toast show ${type}`;
+
+    setTimeout(() => {
+        toast.className = "toast";
+    }, 3000);
+}
+
+function loadPhotos() {
+
+    showToast("📸 Cargando fotos...", "info");
+
+    fetch(`http://localhost:8080/api/qr/photos?eventId=${eventId}&category=${category}`)
+    .then(res => res.json())
+    .then(data => {
+
+        photos = data;
+        const stories = document.getElementById("stories");
+        stories.innerHTML = "";
+
+        data.forEach((photo, index) => {
+            const div = document.createElement("div");
+            div.className = "story";
+
+            div.innerHTML = `
+                <img src="/${photo.url}?t=${Date.now()}" onclick="openStory(${index})">
+            `;
+
+            stories.appendChild(div);
+        });
+
+        showToast("✨ Fotos actualizadas", "success");
+
+    })
+    .catch(() => {
+        showToast("❌ Error al cargar fotos", "error");
+    });
+}
+
+let isPlaying = false;
+
+
+
+let autoScrollInterval;
+document.addEventListener("DOMContentLoaded", () => {
+    startAutoScroll();
+});
+function startAutoScroll() {
+    const container = document.getElementById("stories");
+
+    autoScrollInterval = setInterval(() => {
+
+        container.scrollLeft += 1;
+
+        // 🔁 si llega al final, regresa al inicio
+        if (container.scrollLeft + container.clientWidth >= container.scrollWidth) {
+            container.scrollLeft = 0;
+        }
+
+    }, 20); // velocidad (más bajo = más rápido)
+}
+const stories = document.getElementById("stories");
+
+stories.addEventListener("mouseenter", stopAutoScroll);
+stories.addEventListener("mouseleave", startAutoScroll);
+function stopAutoScroll() {
+    clearInterval(autoScrollInterval);
+}
+// REFRESH
+setInterval(loadPhotos,500000);
+loadPhotos();
+
+</script>
+
+</body>
+</html>
