@@ -342,7 +342,7 @@ let interval;
 var selectedFiles = [];
 // CARGAR
 console.log(document.getElementById("fileInput"));
-function loadPhotos() {
+/*function loadPhotos() {
     fetch(`https://invitacionbodaback.onrender.com/api/qr/photos?eventId=${eventId}&category=${category}`)
     .then(res => res.json())
     .then(data => {
@@ -363,7 +363,7 @@ function loadPhotos() {
             stories.appendChild(div);
         });
     });
-}
+}*/
 
 // SCROLL
 function scrollStories(amount) {
@@ -522,10 +522,10 @@ function showToast(message, type = "info") {
 }
 
 function loadPhotos() {
-
+console.log("----entre---");
     showToast("📸 Cargando fotos...", "info");
 
-    fetch(`https://invitacionbodaback.onrender.com/api/qr/photos?eventId=${eventId}&category=${category}`)
+    fetch(`https://invitacionbodaback.onrender.com/api/qr/photos?eventId=1&category=bodaTaniaAbdiel`)
     .then(res => res.json())
     .then(data => {
 
@@ -538,7 +538,7 @@ function loadPhotos() {
             div.className = "story";
 
             div.innerHTML = `
-                <img src="/${photo.url}?t=${Date.now()}" onclick="openStory(${index})">
+                <img src="${photo.url}?t=${Date.now()}" onclick="openStory(${index})">
             `;
 
             stories.appendChild(div);
