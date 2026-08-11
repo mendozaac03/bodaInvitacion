@@ -343,7 +343,7 @@ var selectedFiles = [];
 // CARGAR
 console.log(document.getElementById("fileInput"));
 function loadPhotos() {
-    fetch(`http://localhost:8080/api/qr/photos?eventId=${eventId}&category=${category}`)
+    fetch(`https://invitacionbodaback.onrender.com/api/qr/photos?eventId=${eventId}&category=${category}`)
     .then(res => res.json())
     .then(data => {
 
@@ -484,7 +484,7 @@ function uploadFiles() {
         formData.append("eventId", 1);
         formData.append("category", "bodaTaniaAbdiel");
 
-        return fetch("http://localhost:8080/api/qr/upload", {
+        return fetch("https://invitacionbodaback.onrender.com/api/qr/upload", {
             method: "POST",
             body: formData
         });
